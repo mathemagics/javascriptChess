@@ -69,8 +69,20 @@ function movePiece () {
 
 }
 function checkCheck() {
-// check piece that moved and any teammate bishop, rook, queen for revealed checks
+   var movesArr = board[sRow][sCol].movement(sRow,sCol);
+
+   for(var i=0,n=movesArr.length;i<n;i++) {
+     atkd=board[movesArr[i][0]][movesArr[i][1]];
+     if(atkd && atkd instanceof King && atkd.color!=thisPiece.color){
+       console.log("CHECK");
+         return true;
+     }
+   }
 }
+
+
+// check piece that moved and any teammate bishop, rook, queen for revealed checks
+
 
 function checkCheckmate() {
 // check if king has any availMoves by removing under attack squares
@@ -159,7 +171,9 @@ function getMoves(tableCell) {
 
     resetColors(pRow,pCol);
     movePiece(sRow,sCol);
-    checkCheck();
+    if(checkCheck()){
+      console.log("CHECK!");
+    }
     reset();
 
   }
