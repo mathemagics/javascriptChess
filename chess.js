@@ -34,10 +34,10 @@ var sRow;
 var sCol;
 
 function movePiece () {
+
   // checking if castle
-
   if(thisPiece.constructor.name==="King" && thisPiece.initial){
-
+      // checking which rook to swap
       if(sRow===0 && sCol===6){
         board[0][5]=board[0][7];
         board[0][7]=null;
@@ -59,22 +59,21 @@ function movePiece () {
         table.rows[7].cells[3].innerHTML = board[7][3].code;
         table.rows[7].cells[0].innerHTML ="";
       }
-
-
-
   }
   // setting real board
   board[sRow][sCol]=board[pRow][pCol];
   board[pRow][pCol]=null;
+  //setting html board
   table.rows[sRow].cells[sCol].innerHTML = thisPiece.code;
   table.rows[pRow].cells[pCol].innerHTML ="";
 
 }
 function checkCheck() {
-
+// check piece that moved and any teammate bishop, rook, queen for revealed checks
 }
 
 function checkCheckmate() {
+// check if king has any availMoves by removing under attack squares
 
 }
 

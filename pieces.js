@@ -4,11 +4,6 @@ class Piece {
       this.color=color;
       this.initial = true;
     }
-
-    //  for kings movement
-
-
-
     isOnBoard(move){
        return move[0]>=0 && move[0]<8 && move[1]>=0 && move[1]<8;
     }
@@ -234,10 +229,13 @@ class King extends Piece{
     this.possible_moves =[[row1+1,col1-1],[row1+1,col1],[row1+1,col1+1],
     [row1,col1-1],[row1,col1+1],
     [row1-1,col1-1],[row1-1,col1],[row1-1,col1+1]];
+
   // removing moves that go off the board
   this.possible_moves = this.possible_moves.filter(this.isOnBoard);
   // removing moves with teammates, 2nd arg: sets 'this' in callback
   this.possible_moves = this.possible_moves.filter(this.isNotTeammate,this);
+  // removing moves that are under attack
+  this.possible_moves = this.possible_moves.filter(this.isNotUnderAttack, this);
 
   // adding castling moves
   if (this.initial) {
@@ -265,8 +263,26 @@ class King extends Piece{
 
   return this.possible_moves;
   }
-  checkUnderAttack() {
 
+  //returns true if a given square is under attack
+  isNotUnderAttack(move) {
+    //for all oponent pieces, check if this sq is in their movelist
+    for(var i=0;i<8;i++){
+      for(var j=0;j<8;j++) {
+        if(board[i][j] && board[i][j].color!=this.color) {
+
+          if(board[i][j] instanceof King) {
+
+
+
+          } else if(isCoordInArr([move[0],move[1]], board[i][j].movement(i,j))){
+              console.log(board[i][j])
+              return false;
+            }
+        }
+      }
+    }
+    return true;
   }
 
 }
