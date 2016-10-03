@@ -21,13 +21,20 @@ PIECES
   - [x] moves
   
 - [ ] king
-  - [ ] moves: needs to check attacked squares
-  - [ ] castling:  needs to check attacked squares
+  - [ ] moves
+    - needs to check attacked squares
+  - [ ] castling  
+    - needs to check attacked squares
 
 GAME LOGIC
  - [x] switch turns
- - [ ] check & checkmate
+ - [ ] check 
+ - [ ] checkmate 
+ - [ ] stalemate
 
 BUGS
  - [x]  selecting the same piece.
  - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
+ 
+REFACTOR
+ - [ ] movePiece Castling code to use a function to move rook. reduce repetition
