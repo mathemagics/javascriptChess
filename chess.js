@@ -14,7 +14,8 @@
 //  reset colors gets wonky sometimes. bishops? white rooks? white knight?>
 // maybe back row pieces? -- FIXED
 
-// 
+//REFACTOR
+// Castling code to use a function to move rook
 
 
 var board = [];
@@ -33,12 +34,41 @@ var sRow;
 var sCol;
 
 function movePiece () {
-;
-  table.rows[sRow].cells[sCol].innerHTML = thisPiece.code;
-  table.rows[pRow].cells[pCol].innerHTML ="";
-   // setting real board
+  // checking if castle
+
+  if(thisPiece.constructor.name==="King" && thisPiece.initial){
+
+      if(sRow===0 && sCol===6){
+        board[0][5]=board[0][7];
+        board[0][7]=null;
+        table.rows[0].cells[5].innerHTML = board[0][5].code;
+        table.rows[0].cells[7].innerHTML ="";
+      } else if(sRow===0 && sCol===2) {
+        board[0][3]=board[0][0];
+        board[0][0]=null;
+        table.rows[0].cells[3].innerHTML = board[0][3].code;
+        table.rows[0].cells[0].innerHTML ="";
+      } else if(sRow===7 && sCol===6) {
+        board[7][5]=board[7][7];
+        board[7][7]=null;
+        table.rows[7].cells[5].innerHTML = board[7][5].code;
+        table.rows[7].cells[7].innerHTML ="";
+      } else if(sRow===7 && sCol===2) {
+        board[7][3]=board[7][0];
+        board[7][0]=null;
+        table.rows[7].cells[3].innerHTML = board[7][3].code;
+        table.rows[7].cells[0].innerHTML ="";
+      }
+
+
+
+  }
+  // setting real board
   board[sRow][sCol]=board[pRow][pCol];
   board[pRow][pCol]=null;
+  table.rows[sRow].cells[sCol].innerHTML = thisPiece.code;
+  table.rows[pRow].cells[pCol].innerHTML ="";
+
 }
 function checkCheck() {
 
@@ -105,6 +135,7 @@ function setClick() {
         }
     }
 }
+
 function getMoves(tableCell) {
 
   //setting selected piece
