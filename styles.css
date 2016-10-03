@@ -1,0 +1,23 @@
+#chessboard {
+  border-collapse: collapse;
+  cursor: pointer;
+}
+tr {
+  padding: 0px;
+}
+
+td {
+  height:40px;
+  width:40px;
+  padding: 0px;
+  border: 1px solid black;
+  float: left;
+  text-align: center;
+  font-size: 32px
+}
+.whitesq {
+  background-color: #99ccff;
+}
+.blacksq {
+  background-color: #0099ff;
+}
