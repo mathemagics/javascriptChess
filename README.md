@@ -21,14 +21,14 @@ PIECES
   - [x] moves
   
 - [ ] king
-  - [ ] moves
-    - needs to check attacked squares
+  - [x] moves    
   - [ ] castling  
     - needs to check attacked squares
 
 GAME LOGIC
  - [x] switch turns
  - [ ] check 
+  - need to make opponent "uncheck"
  - [ ] checkmate 
  - [ ] stalemate
 
@@ -37,4 +37,4 @@ BUGS
  - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
  
 REFACTOR
- - [ ] movePiece Castling code to use a function to move rook. reduce repetition
+ - [ ] movePiece() Castling code to use a function to move rook. reduce repetition
