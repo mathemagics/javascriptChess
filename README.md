@@ -24,7 +24,7 @@ PIECES
   - [ ] moves: needs to check attacked squares
   - [ ] castling:  needs to check attacked squares
 
- GAME LOGIC
+GAME LOGIC
  - [x] switch turns
  - [ ] check & checkmate
 
