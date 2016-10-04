@@ -274,7 +274,7 @@ class King extends Piece{
             // check to see if in range of enemy king
 
           } else if(isCoordInArr([move[0],move[1]], board[i][j].movement(i,j))){
-              console.log(board[i][j])
+              
               return false;
             }
         }

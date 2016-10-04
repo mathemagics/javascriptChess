@@ -11,11 +11,11 @@
 //  selecting the same piece.  --  FIXED
 //  reset colors gets wonky sometimes. bishops? white rooks? white knight?>
 // maybe back row pieces? -- FIXED
+// FALSE CHECKMATE
 
 //REFACTOR
 // Castling code to use a function to move rook
 // moveTestPiece isnt the best implementation
-
 
 var board = [];
 var table;
@@ -70,7 +70,6 @@ function movePiece () {
 }
 
 function checkCheck() {
-  console.log("srow: " + sRow +" scol:" +sCol)
    var movesArr = board[sRow][sCol].movement(sRow,sCol);
    for(var i=0,n=movesArr.length;i<n;i++) {
      atkd=board[movesArr[i][0]][movesArr[i][1]];
@@ -81,6 +80,8 @@ function checkCheck() {
    }
 }
 
+// returns true if current move removes check
+// thisPiece is attacking piece from prow,pcol to srow,scol
 function removeCheck() {
 
   var takenSpot=board[sRow][sCol]
@@ -90,9 +91,11 @@ function removeCheck() {
   for(var i = 0;i<8;i++){
     for(var j = 0;j<8;j++){
       // getting enemy pieces
-      var atkr=board[i][j]
+      var atkr=board[i][j];
+      console.log(thisPiece);
       if(atkr && atkr.color!=thisPiece.color) {
-        movesArr=atkr.movement(i,j);
+        console.log("atkr:  " + atkr.color + " " + atkr.constructor.name)
+        var movesArr=atkr.movement(i,j);
         // checking if our king is in their movelist
         for(var k=0,n=movesArr.length;k<n;k++) {
           var atkd=board[movesArr[k][0]][movesArr[k][1]];
@@ -107,16 +110,44 @@ function removeCheck() {
       }
     }
   }
+  console.log(" removing check:")
   board[pRow][pCol]=board[sRow][sCol];
   board[sRow][sCol]=takenSpot;
   return true;
 }
-// check piece that moved and any teammate bishop, rook, queen for revealed checks
 
+// after making a move that checks the enemy king.
+// we look to see if the enemy has an available move to remove checks
+// before switching turns
 function checkCheckmate() {
-// check if king has any availMoves by removing under attack squares
+
+for(var i = 0;i<8;i++){
+  for(var j = 0;j<8;j++){
+    // getting enemy pieces
+    thisPiece=board[i][j];
+    if(thisPiece && thisPiece.color!=turn) {
+      console.log("checking enemy: " + thisPiece.color + " " + thisPiece.constructor.name + "@" + i + ", " +j)
+      var movesArr=thisPiece.movement(i,j);
+
+      for(var k=0,n=movesArr.length;k<n;k++) {
+          pRow=i;
+          pCol=j;
+          sRow=movesArr[k][0];
+          sCol=movesArr[k][1];
+          if(removeCheck()){
+            console.log("NOT CHECKMATE");
+          return false;
+          }
+        }
+      }
+    }
+  }
+  console.log("CHECKMATE");
+  return true;
+
 
 }
+
 
 function startBoard() {
 
@@ -199,10 +230,10 @@ function getMoves(tableCell) {
   } else {
     resetColors(pRow,pCol);
     if(!check || removeCheck()) {
-      console.log("here");
       movePiece();
       if(checkCheck()){
         check=true;
+        checkCheckmate();
       }
       reset();
     }
@@ -222,7 +253,6 @@ function setColors(row,col) {
 }
 // resets ths bg color of the previous selection
 function resetColors(resetRow,resetCol) {
-  console.log("resetting: "+ resetRow + ", " + resetCol);
   var resetCell=table.rows[resetRow].cells[resetCol];
   resetCell.style.background=resetCell.className==="whitesq"? "#99ccff": "#0099ff"
   for(var i=0, n=availMoves.length;i<n;i++) {
