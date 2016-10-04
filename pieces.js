@@ -258,7 +258,6 @@ class King extends Piece{
         this.possible_moves.push([7,2]);
       }
     }
-
   }
 
   return this.possible_moves;

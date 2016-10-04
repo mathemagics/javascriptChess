@@ -2,12 +2,10 @@
 // MOVE PIECE
 
 // ENPASSANT - maybe with move history?
-// CASTLING
+// CASTLING -  need to check under attack sqs
 // UNDER ATTACK SQs - available king moves
-// CHECK & CHECKMATE -
+// CHECK & CHECKMATE -need to add get out of check
 // PAWN PROMOTION
-
-// GAME LOGIC
 
 //  BUGS
 //  selecting the same piece.  --  FIXED
@@ -16,6 +14,7 @@
 
 //REFACTOR
 // Castling code to use a function to move rook
+// moveTestPiece isnt the best implementation
 
 
 var board = [];
@@ -23,6 +22,7 @@ var table;
 
 var checkmate=false;
 var turn="white";
+var check;
 
 
 var availMoves=[];
@@ -68,21 +68,50 @@ function movePiece () {
   table.rows[pRow].cells[pCol].innerHTML ="";
 
 }
-function checkCheck() {
-   var movesArr = board[sRow][sCol].movement(sRow,sCol);
 
+function checkCheck() {
+  console.log("srow: " + sRow +" scol:" +sCol)
+   var movesArr = board[sRow][sCol].movement(sRow,sCol);
    for(var i=0,n=movesArr.length;i<n;i++) {
      atkd=board[movesArr[i][0]][movesArr[i][1]];
      if(atkd && atkd instanceof King && atkd.color!=thisPiece.color){
-       console.log("CHECK");
+       console.log("CHECK!");
          return true;
      }
    }
 }
 
+function removeCheck() {
 
+  var takenSpot=board[sRow][sCol]
+  board[sRow][sCol]=board[pRow][pCol];
+  board[pRow][pCol]=null;
+
+  for(var i = 0;i<8;i++){
+    for(var j = 0;j<8;j++){
+      // getting enemy pieces
+      var atkr=board[i][j]
+      if(atkr && atkr.color!=thisPiece.color) {
+        movesArr=atkr.movement(i,j);
+        // checking if our king is in their movelist
+        for(var k=0,n=movesArr.length;k<n;k++) {
+          var atkd=board[movesArr[k][0]][movesArr[k][1]];
+
+          if(atkd && atkd instanceof King && atkd.color===thisPiece.color){
+            console.log("still in check");
+            board[pRow][pCol]=board[sRow][sCol];
+            board[sRow][sCol]=takenSpot;
+            return false;
+          }
+        }
+      }
+    }
+  }
+  board[pRow][pCol]=board[sRow][sCol];
+  board[sRow][sCol]=takenSpot;
+  return true;
+}
 // check piece that moved and any teammate bishop, rook, queen for revealed checks
-
 
 function checkCheckmate() {
 // check if king has any availMoves by removing under attack squares
@@ -168,14 +197,15 @@ function getMoves(tableCell) {
     pCol=sCol;
 
   } else {
-
     resetColors(pRow,pCol);
-    movePiece(sRow,sCol);
-    if(checkCheck()){
-      console.log("CHECK!");
+    if(!check || removeCheck()) {
+      console.log("here");
+      movePiece();
+      if(checkCheck()){
+        check=true;
+      }
+      reset();
     }
-    reset();
-
   }
 }
 
@@ -202,19 +232,19 @@ function resetColors(resetRow,resetCol) {
 }
 
 function isCoordInArr(coord,arr) {
-      for (var i = 0, n=arr.length; i < n ; i++) {
-          if (arr[i][0] == coord[0] && arr[i][1] == coord[1]) {
-              return true;
-          }
-      }
-      return false;
+  for (var i = 0, n=arr.length; i < n ; i++) {
+    if (arr[i][0] == coord[0] && arr[i][1] == coord[1]) {
+      return true;
+    }
+  }
+  return false;
 
 }
 
 function reset() {
-availMoves=[];
-thisPiece=null;
-turn = turn=="white" ? "black" : "white"
+  availMoves=[];
+  thisPiece=null;
+  turn = turn=="white" ? "black" : "white"
 }
 
 startBoard();
