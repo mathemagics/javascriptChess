@@ -27,8 +27,7 @@ PIECES
 
 GAME LOGIC
  - [x] switch turns
- - [ ] check 
-  - need to make opponent "uncheck"
+ - [x] check 
  - [ ] checkmate 
  - [ ] stalemate
 
