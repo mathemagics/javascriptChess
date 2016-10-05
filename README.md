@@ -6,6 +6,7 @@ PIECES
   - [x] moves
   - [x] attacks
   - [ ] enpassant 
+    - need to capture en-passanted pawn
   - [ ] promotion
     - need to add html interface
     
