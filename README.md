@@ -32,6 +32,8 @@ GAME LOGIC
  - [ ] checkmate 
   - need to add ui elements for checkmate
  - [ ] stalemate
+  - [ ] fifty moves rule
+  - [ ] threefold repetition
 
 BUGS
  - [x]  selecting the same piece.
