@@ -40,6 +40,7 @@ BUGS
  - [x]  selecting the same piece.
  - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
  - [ ] king can castle if he goes back to initial. not setting initial=false
+ - [x] enpassant giving extra moves to pawns.
  
 REFACTOR
  - [ ] movePiece() Castling code to use a function to move rook. reduce repetition
