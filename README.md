@@ -7,6 +7,7 @@ PIECES
   - [x] attacks
   - [ ] enpassant 
   - [ ] promotion
+    - need to add html interface
     
 - [x] knight
   - [x] moves
@@ -29,11 +30,17 @@ GAME LOGIC
  - [x] switch turns
  - [x] check 
  - [ ] checkmate 
+  - need to add ui elements for checkmate
  - [ ] stalemate
 
 BUGS
  - [x]  selecting the same piece.
  - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
+ - [ ] king can castle if he goes back to initial. not setting initial=false
  
 REFACTOR
  - [ ] movePiece() Castling code to use a function to move rook. reduce repetition
+ - [ ] black is at the bottom
+ 
+ADDITIONS
+ - [ ] History
