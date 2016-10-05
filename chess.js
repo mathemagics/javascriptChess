@@ -1,17 +1,11 @@
 
-// MOVE PIECE
-
 // ENPASSANT - maybe with move history?
 // CASTLING -  need to check under attack sqs
-// UNDER ATTACK SQs - available king moves
-// CHECK & CHECKMATE -need to add get out of check
 // PAWN PROMOTION
 
 //  BUGS
-//  selecting the same piece.  --  FIXED
-//  reset colors gets wonky sometimes. bishops? white rooks? white knight?>
-// maybe back row pieces? -- FIXED
-// FALSE CHECKMATE
+// Can castle if king goes back to spot
+// not setting initial position
 
 //REFACTOR
 // Castling code to use a function to move rook
@@ -23,7 +17,6 @@ var table;
 var checkmate=false;
 var turn="white";
 var check;
-
 
 var availMoves=[];
 
@@ -130,22 +123,20 @@ for(var i = 0;i<8;i++){
       var movesArr=thisPiece.movement(i,j);
 
       for(var k=0,n=movesArr.length;k<n;k++) {
-          pRow=i;
-          pCol=j;
-          sRow=movesArr[k][0];
-          sCol=movesArr[k][1];
-          if(removeCheck()){
-            console.log("NOT CHECKMATE");
-          return false;
-          }
+        pRow=i;
+        pCol=j;
+        sRow=movesArr[k][0];
+        sCol=movesArr[k][1];
+        if(removeCheck()){
+          console.log("NOT CHECKMATE");
+        return false;
         }
       }
+    }
     }
   }
   console.log("CHECKMATE");
   return true;
-
-
 }
 
 
@@ -254,10 +245,10 @@ function setColors(row,col) {
 // resets ths bg color of the previous selection
 function resetColors(resetRow,resetCol) {
   var resetCell=table.rows[resetRow].cells[resetCol];
-  resetCell.style.background=resetCell.className==="whitesq"? "#99ccff": "#0099ff"
+  resetCell.style.background=resetCell.className==="whitesq"? "#F0D9C2": "#C98F55"
   for(var i=0, n=availMoves.length;i<n;i++) {
     resetCell=table.rows[availMoves[i][0]].cells[availMoves[i][1]];
-    resetCell.style.background=resetCell.className==="whitesq"? "#99ccff": "#0099ff"
+    resetCell.style.background=resetCell.className==="whitesq"? "#F0D9C2": "#C98F55"
   }
 }
 

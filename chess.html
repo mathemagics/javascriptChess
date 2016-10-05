@@ -6,88 +6,146 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <table id="chessboard">
-      <tr>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      </tr>
-      <tr>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      </tr>
-      <tr>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      </tr>
-      <tr>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      </tr>
-      <tr>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      </tr>
-      <tr>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      </tr>
-      <tr>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      </tr>
-      <tr>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      <td class="blacksq"> </td>
-      <td class="whitesq"> </td>
-      </tr>
-    </table>
+    <div id="board">
+      <table id="letters">
+        <tr>
+          <td class="filler"></td>
+          <td class="letter">a</td>
+          <td class="letter">b</td>
+          <td class="letter">c </td>
+          <td class="letter">d</td>
+          <td class="letter">e</td>
+          <td class="letter">f</td>
+          <td class="letter">g</td>
+          <td class="letter">h</td>
+          <td class="filler"></td>
+        </tr>
+      </table>
+      <table class="numbers">
+        <tr>
+          <td class="number"><p>1</p></td>
+          <td class="number"><p>2</p></td>
+          <td class="number"><p>3</p></td>
+          <td class="number"><p>4</p></td>
+          <td class="number"><p>5</p></td>
+          <td class="number"><p>6</p></td>
+          <td class="number"><p>7</p></td>
+          <td class="number"><p>8</p></td>
+        </tr>
+      </table>
+      <table id="chessboard">
+        <tr>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        </tr>
+        <tr>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        </tr>
+        <tr>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        </tr>
+        <tr>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        </tr>
+        <tr>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        </tr>
+        <tr>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        </tr>
+        <tr>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        </tr>
+        <tr>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        <td class="blacksq"> </td>
+        <td class="whitesq"> </td>
+        </tr>
+      </table>
+
+      <table class="numbers">
+        <tr>
+          <td class="number"><p>1</p></td>
+          <td class="number"><p>2</p></td>
+          <td class="number"><p>3</p></td>
+          <td class="number"><p>4</p></td>
+          <td class="number"><p>5</p></td>
+          <td class="number"><p>6</p></td>
+          <td class="number"><p>7</p></td>
+          <td class="number"><p>8</p></td>
+        </tr>
+      </table>
+      <table id="letters">
+        <tr>
+          <td class="filler"></td>
+          <td class="letter">a</td>
+          <td class="letter">b</td>
+          <td class="letter">c </td>
+          <td class="letter">d</td>
+          <td class="letter">e</td>
+          <td class="letter">f</td>
+          <td class="letter">g</td>
+          <td class="letter">h</td>
+          <td class="filler"></td>
+        </tr>
+      </table>
+  </div>
+
+    <div id="promotion">
+    </div>
     <script src="pieces.js"></script>
     <script src="chess.js"></script>
   </body>
