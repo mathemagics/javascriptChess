@@ -59,12 +59,12 @@ class Pawn extends Piece  {
       }
       //  checking attacking squares
       if (row1+1<8 && col1-1>=0){
-        if(board[row1+1][col1-1] && board[row1+1][col1-1].color!=this.color) {
+        if((board[row1+1][col1-1] && board[row1+1][col1-1].color!=this.color) || (this.checkEnpassant()==col1-1 && row1+1==5)){
           this.possible_moves.push([row1+1,col1-1]);
         }
       }
       if (row1+1<8 && col1+1<8){
-        if(board[row1+1][col1+1] && board[row1+1][col1+1].color!=this.color) {
+        if((board[row1+1][col1+1] && board[row1+1][col1+1].color!=this.color) || (this.checkEnpassant()==col1+1 && row1+1==5)){
           this.possible_moves.push([row1+1,col1+1]);
         }
       }
@@ -79,20 +79,39 @@ class Pawn extends Piece  {
       }
       //  checking attacking squares
       if (row1-1>=0 && col1-1>=0){
-        if(board[row1-1][col1-1] && board[row1-1][col1-1].color!=this.color) {
+        if((board[row1-1][col1-1] && board[row1-1][col1-1].color!=this.color) || (this.checkEnpassant()==col1-1 && row1-1==2)) {
           this.possible_moves.push([row1-1,col1-1]);
         }
       }
       if (row1-1>=0 && col1+1<8){
-        if(board[row1-1][col1+1] && board[row1-1][col1+1].color!=this.color) {
+        if((board[row1-1][col1+1] && board[row1-1][col1+1].color!=this.color) || (this.checkEnpassant()==col1+1 && row1-1==2)){
           this.possible_moves.push([row1-1,col1+1]);
         }
       }
     }
     return this.possible_moves;
   }
+  // if last move was enpassant, returns the column. else returns "no""
+  checkEnpassant() {
+    if(lastMove){
+      if(lastMove.piece=="Pawn"){
+        if(turn=="white") {
+          if (lastMove.pRow==6 && lastMove.sRow==4) {
+            return lastMove.pCol;
+          }
+        }
+        else if (turn=="black") {
+          if (lastMove.pRow==1 && lastMove.sRow==3) {
+            return lastMove.pCol;
+          }
+        }
+      }
+    }
+    return "no"
+  }
 
 }
+
 class Knight extends Piece{
 
   constructor(color){
@@ -274,7 +293,7 @@ class King extends Piece{
             // check to see if in range of enemy king
 
           } else if(isCoordInArr([move[0],move[1]], board[i][j].movement(i,j))){
-              
+
               return false;
             }
         }

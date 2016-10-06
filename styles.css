@@ -53,6 +53,13 @@ display: block;
 }
 
 #chessboard {
+
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+
   margin-top: 4px;
   margin-left: auto;
   margin-right: auto;
@@ -76,12 +83,59 @@ td {
   font-size: 32px;
 }
 .whitesq {
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
   background-color: #F0D9C2;
 }
 .blacksq {
+  -moz-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
   background-color: #C98F55;
 }
 
-#promotion {
+#cover {
+  z-index: 1;
+  display: none;
+  position:absolute;
+  top: 25px;
+  left: 25px;
+  height: 348px;
+  width: 348px;
+  background-color: grey;
+  opacity: 0.9;
+}
+.promotion-box {
+  position:absolute;
+  top:120px;
+  left: 50px;
+  text-align: center;
+  background-color: #1A3461;
+  height:60px;
+  width: 250px;
+  position: relative;
+}
 
+.piece {
+  margin-top: 6px;
+  display: inline-block;
+  height:44px;
+  width:44px;
+  border: 2px solid white;
+}
+
+.piece-icon {
+  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  height:40px;
+  width:40px;
+  background-color: #F0D9C2;
+  font-size: 30px;
+  cursor: pointer;
 }

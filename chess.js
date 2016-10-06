@@ -1,22 +1,20 @@
 
-// ENPASSANT - maybe with move history?
 // CASTLING -  need to check under attack sqs
 // PAWN PROMOTION
-
-//  BUGS
-// Can castle if king goes back to spot
-// not setting initial position
+// STALEMATE
 
 //REFACTOR
-// Castling code to use a function to move rook
-// moveTestPiece isnt the best implementation
+// chang Castling code to use a function to move rook
+// promotion waiting is ugly. chang it!
 
 var board = [];
 var table;
+var cover;
 
 var checkmate=false;
 var turn="white";
 var check;
+var promoting=false;
 
 var availMoves=[];
 
@@ -25,6 +23,8 @@ var pRow;
 var pCol;
 var sRow;
 var sCol;
+
+var lastMove;
 
 function movePiece () {
 
@@ -53,13 +53,27 @@ function movePiece () {
         table.rows[7].cells[0].innerHTML ="";
       }
   }
+  else if (thisPiece.constructor.name==="Pawn") {
+
+    // setting promotion:
+    if(sRow==7 || sRow==0) {
+      setPromotion();
+      return;
+
+    } else if(Math.abs(pCol-sCol)==1 && !board[sRow][sCol]) {
+      // removing attacked piece through en passant
+      table.rows[pRow].cells[sCol].innerHTML ="";
+    }
+
+  }
   // setting real board
   board[sRow][sCol]=board[pRow][pCol];
   board[pRow][pCol]=null;
   //setting html board
   table.rows[sRow].cells[sCol].innerHTML = thisPiece.code;
   table.rows[pRow].cells[pCol].innerHTML ="";
-
+  lastMove = {piece: thisPiece.constructor.name, pRow: pRow, pCol: pCol, sRow: sRow, sCol: sCol}
+  console.log(lastMove.piece + " " +lastMove.pRow + ", " + lastMove.pCol);
 }
 
 function checkCheck() {
@@ -114,31 +128,30 @@ function removeCheck() {
 // before switching turns
 function checkCheckmate() {
 
-for(var i = 0;i<8;i++){
-  for(var j = 0;j<8;j++){
-    // getting enemy pieces
-    thisPiece=board[i][j];
-    if(thisPiece && thisPiece.color!=turn) {
-      console.log("checking enemy: " + thisPiece.color + " " + thisPiece.constructor.name + "@" + i + ", " +j)
-      var movesArr=thisPiece.movement(i,j);
+  for(var i = 0;i<8;i++){
+    for(var j = 0;j<8;j++){
+      // getting enemy pieces
+      thisPiece=board[i][j];
+      if(thisPiece && thisPiece.color!=turn) {
+        console.log("checking enemy: " + thisPiece.color + " " + thisPiece.constructor.name + "@" + i + ", " +j)
+        var movesArr=thisPiece.movement(i,j);
 
-      for(var k=0,n=movesArr.length;k<n;k++) {
-        pRow=i;
-        pCol=j;
-        sRow=movesArr[k][0];
-        sCol=movesArr[k][1];
-        if(removeCheck()){
-          console.log("NOT CHECKMATE");
-        return false;
+        for(var k=0,n=movesArr.length;k<n;k++) {
+          pRow=i;
+          pCol=j;
+          sRow=movesArr[k][0];
+          sCol=movesArr[k][1];
+          if(removeCheck()){
+            console.log("NOT CHECKMATE");
+          return false;
+          }
         }
       }
-    }
     }
   }
   console.log("CHECKMATE");
   return true;
 }
-
 
 function startBoard() {
 
@@ -174,14 +187,64 @@ function startBoard() {
 function drawBoard() {
   table = document.getElementById("chessboard");
   if (table != null) {
-      for (var i = 0; i < table.rows.length; i++) {
-          for (var j = 0; j < table.rows[i].cells.length; j++)
-          if (board[i][j]) {
-            unicode=board[i][j].code;
-          table.rows[i].cells[j].innerHTML += unicode;
-        }
+    for (var i = 0; i < table.rows.length; i++) {
+        for (var j = 0; j < table.rows[i].cells.length; j++)
+        if (board[i][j]) {
+          unicode=board[i][j].code;
+        table.rows[i].cells[j].innerHTML += unicode;
       }
+    }
   }
+}
+
+function setPromotion() {
+  promoting=true;
+  cover=document.getElementById("cover");
+  cover.style.display="block";
+  var queen = document.getElementById("queen")
+  queen.onclick = function () {
+    promote(this.id);
+  }
+  document.getElementById("knight").onclick = function () {
+    promote(this.id);
+  }
+  document.getElementById("bishop").onclick = function () {
+    promote(this.id);
+  }
+  document.getElementById("rook").onclick = function () {
+    promote(this.id);
+  }
+}
+
+function promote(id) {
+  var promoted
+  switch(id) {
+    case "queen":
+      promoted=new Queen(turn)
+    break;
+    case "rook":
+      promoted=new Rook(turn);
+    break;
+    case "bishop":
+      promoted=new Bishop(turn);
+    break;
+    case "knight":
+      promoted=new Knight(turn);
+    break;
+    default:
+    break;
+  }
+  board[sRow][sCol]=promoted
+  board[pRow][pCol]=null;
+  table.rows[sRow].cells[sCol].innerHTML = promoted.code
+  table.rows[pRow].cells[pCol].innerHTML ="";
+  cover.style.display="none";
+  promoting=false;
+  if(checkCheck()){
+    check=true;
+    checkCheckmate();
+  }
+  reset();
 
 }
 
@@ -222,11 +285,13 @@ function getMoves(tableCell) {
     resetColors(pRow,pCol);
     if(!check || removeCheck()) {
       movePiece();
-      if(checkCheck()){
-        check=true;
-        checkCheckmate();
+      if(!promoting){
+        if(checkCheck()){
+          check=true;
+          checkCheckmate();
+        }
+        reset();
       }
-      reset();
     }
   }
 }
@@ -264,6 +329,7 @@ function isCoordInArr(coord,arr) {
 
 function reset() {
   availMoves=[];
+  thisPiece.initial=false;
   thisPiece=null;
   turn = turn=="white" ? "black" : "white"
 }
