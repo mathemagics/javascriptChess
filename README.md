@@ -28,8 +28,7 @@ PIECES
 GAME LOGIC
  - [x] switch turns
  - [x] check 
- - [ ] checkmate 
-  - need to add ui elements for checkmate
+ - [x] checkmate 
  - [ ] stalemate
   - [ ] fifty moves rule
   - [ ] threefold repetition
