@@ -2,12 +2,11 @@
 Translating ruby_chess to javascript/html/css
 
 PIECES
-- [ ] pawn 
+- [x] pawn 
   - [x] moves
   - [x] attacks
   - [x] enpassant 
-  - [ ] promotion
-    - Need to link HTML interface to game
+  - [x] promotion
     
 - [x] knight
   - [x] moves
@@ -36,14 +35,16 @@ GAME LOGIC
   - [ ] threefold repetition
 
 BUGS
- - [x]  selecting the same piece.
- - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
+ - [x] selecting the same piece.
+ - [x] reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
  - [x] king can castle if he goes back to initial. not setting initial=false
  - [x] enpassant giving extra moves to pawns.
+ - [ ] some null error is thrown when checkmate
  
 REFACTOR
- - [ ] movePiece() Castling code to use a function to move rook. reduce repetition
+ - [ ] chang movePiece() Castling code to use a function to move rook. reduce repetition
  - [x] black is at the bottom
+ - [ ] promotion waiting is ugly. chang it!
  
 ADDITIONS
  - [ ] History
