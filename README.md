@@ -40,6 +40,7 @@ BUGS
  - [x] king can castle if he goes back to initial. not setting initial=false
  - [x] enpassant giving extra moves to pawns.
  - [ ] some null error is thrown when checkmate
+ - [ ] king can move next to enemy king
  
 REFACTOR
  - [ ] chang movePiece() Castling code to use a function to move rook. reduce repetition
