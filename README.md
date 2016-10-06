@@ -5,10 +5,9 @@ PIECES
 - [ ] pawn 
   - [x] moves
   - [x] attacks
-  - [ ] enpassant 
-    - need to capture en-passanted pawn
+  - [x] enpassant 
   - [ ] promotion
-    - need to add html interface
+    - Need to link HTML interface to game
     
 - [x] knight
   - [x] moves
@@ -39,12 +38,12 @@ GAME LOGIC
 BUGS
  - [x]  selecting the same piece.
  - [x]  reset colors gets wonky sometimes. bishops? white rooks? white knight? maybe back row pieces? 
- - [ ] king can castle if he goes back to initial. not setting initial=false
+ - [x] king can castle if he goes back to initial. not setting initial=false
  - [x] enpassant giving extra moves to pawns.
  
 REFACTOR
  - [ ] movePiece() Castling code to use a function to move rook. reduce repetition
- - [ ] black is at the bottom
+ - [x] black is at the bottom
  
 ADDITIONS
  - [ ] History
